@@ -14,7 +14,7 @@ define(function() {
         return function(args){
             return str + ', ' + args;
         };
-    },
+   },
 
     makeClosures : function(arr, fn) {
         var result = [];
@@ -28,23 +28,39 @@ define(function() {
     },
 
     partial : function(fn, str1, str2) {
-
+        var args = Array.prototype.slice.call(arguments,1);
+        return function(){
+            return fn.apply(fn, args.concat(Array.prototype.slice.call(arguments)));
+        };
     },
 
     useArguments : function() {
-
+        var args = Array.prototype.slice.call(arguments);
+        var sum = 0;
+        for (var i = 0; i < args.length; i++){
+            sum += args[i];
+        }
+        return sum;
     },
 
     callIt : function(fn) {
-
+        var args = Array.prototype.slice.call(arguments, 1);
+        fn.apply(null, args);
     },
 
     partialUsingArguments : function(fn) {
+        var args = Array.prototype.slice.call(arguments,1);
+        return function(){
+            return fn.apply(fn, args.concat(Array.prototype.slice.call(arguments)));
+        };
 
     },
 
     curryIt : function(fn) {
-
+        var args = Array.prototype.slice.call(arguments);
+        return function(){
+            return fn.apply(this, args.concat(Array.prototype.slice.call(arguments)));
+        }
     }
   };
 });
