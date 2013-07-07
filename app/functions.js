@@ -57,9 +57,12 @@ define(function() {
     },
 
     curryIt : function(fn) {
-        var args = Array.prototype.slice.call(arguments);
+        var expected = fn.length;
+        var args = Array.prototype.slice.call(arguments, 1);
         return function(){
-            return fn.apply(this, args.concat(Array.prototype.slice.call(arguments)));
+            console.log(arguments);
+            console.log(args);
+            return fn(args.concat(arguments));
         }
     }
   };
